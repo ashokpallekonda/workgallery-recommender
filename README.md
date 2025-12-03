@@ -2,7 +2,9 @@
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-WorkGallery%20AI-blue?style=for-the-badge&logo=render)](https://workgallery.onrender.com/frontend)
 [![API Docs](https://img.shields.io/badge/API-Swagger%20Docs-green?style=for-the-badge)](https://workgallery.onrender.com/docs)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
+
+**© 2025 Ashok Pallekonda. All rights reserved.**  
+This code is **not open source**. You may view and run it, but **no modification, distribution, or commercial use** without explicit written permission.
 
 **A fully production-deployed, scalable job recommendation engine built from scratch in 7 days.**  
 Two-tower neural retrieval + LightGBM ranking → sub-100ms inference → live on the internet.
