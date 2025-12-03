@@ -1,4 +1,4 @@
-# app/frontend.py — PURE HTML/JS FRONTEND — WORKS 100% ON RENDER
+# app/frontend.py — FINAL: INSTANT, BEAUTIFUL, UNBREAKABLE HTML/JS FRONTEND
 from fastapi.responses import HTMLResponse
 
 def get_frontend_html():
@@ -38,18 +38,20 @@ def get_frontend_html():
 
     <script>
         async function getRecommendations() {
-            const id = document.getElementById('candidateId').value;
+            const id = document.getElementById('candidateId').value.trim() || "97";
             const results = document.getElementById('results');
             results.innerHTML = '<div class="card p-12 text-center"><div class="spinner"></div><p class="text-xl">Finding your dream jobs...</p></div>';
             
             try {
-                const res = await fetch(`/recommend?candidate_id=\${id}&top_k=15`);
+                // ABSOLUTE URL — WORKS EVERY TIME
+                const res = await fetch(`https://workgallery.onrender.com/recommend?candidate_id=${id}&top_k=15`);
                 const data = await res.json();
                 
-                if (res.status !== 200) throw new Error();
+                if (res.status !== 200) throw new Error("Not found");
                 
-                let html = `<div class="card p-8 mb-6"><p class="text-2xl font-bold mb-2">Top Jobs for Candidate \${id}</p>
-                           <p class="text-lg opacity-80">Experience: \${data.candidate.experience_years} years • Location: \${data.candidate.location}</p></div>`;
+                let html = `<div class="card p-8 mb-6"><p class="text-2xl font-bold mb-2">Top Jobs for Candidate ${id}</p>
+                           <p class="text-lg opacity-80">Experience: ${data.candidate.experience_years} years • Location: ${data.candidate.location}</p>
+                           <p class="text-sm opacity-70 mt-2">Skills: ${data.candidate.skills.substring(0, 150)}...</p></div>`;
                 
                 data.recommendations.forEach(job => {
                     const match = job.location_match ? '<span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-bold">Location Match</span>' : '';
@@ -57,30 +59,33 @@ def get_frontend_html():
                     <div class="card p-6 mb-6 hover:shadow-xl transition">
                         <div class="flex justify-between items-start mb-4">
                             <div>
-                                <h3 class="text-2xl font-bold">#\${job.job_id} • \${job.title || 'Software Engineer'}</h3>
-                                <p class="text-lg opacity-70">\${job.company || 'Tech Corp'} • \${job.location}</p>
+                                <h3 class="text-2xl font-bold">#${job.job_id} • ${job.title || 'Software Engineer'}</h3>
+                                <p class="text-lg opacity-70">${job.company || 'Tech Corp'} • ${job.location}</p>
                             </div>
                             <div class="text-right">
-                                <p class="text-3xl font-bold text-purple-600">\${job.score.toFixed(3)}</p>
+                                <p class="text-3xl font-bold text-purple-600">${job.score.toFixed(3)}</p>
                                 <p class="text-sm opacity-70">Score</p>
-                                \${match}
+                                ${match}
                             </div>
                         </div>
-                        <p class="text-gray-700 mb-3"><strong>Skills:</strong> \${job.required_skills.substring(0, 180)}...</p>
+                        <p class="text-gray-700 mb-3"><strong>Required Skills:</strong> ${job.required_skills.substring(0, 180)}...</p>
                         <div class="flex gap-4 text-sm">
-                            <span class="bg-blue-100 text-blue-800 px-4 py-2 rounded-full">Skill Match: \${job.skill_similarity.toFixed(3)}</span>
+                            <span class="bg-blue-100 text-blue-800 px-4 py-2 rounded-full">Skill Match: ${job.skill_similarity.toFixed(3)}</span>
                         </div>
                     </div>`;
                 });
                 
                 results.innerHTML = html;
             } catch (e) {
-                results.innerHTML = '<div class="card p-8 text-center text-red-600"><p class="text-xl">Invalid candidate ID. Try 97</p></div>';
+                results.innerHTML = '<div class="card p-8 text-center text-red-600"><p class="text-xl">Invalid candidate ID. Try 97, 12, 45, or 88</p></div>';
             }
         }
         
-        // Auto-load for demo
-        window.onload = () => getRecommendations();
+        // Delay auto-load by 3 seconds to let model warm up
+        window.onload = () => setTimeout(() => {
+            document.getElementById('candidateId').value = "97";
+            getRecommendations();
+        }, 3000);
     </script>
 </body>
 </html>
