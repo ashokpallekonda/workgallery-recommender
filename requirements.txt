@@ -1,0 +1,12 @@
+# requirements.txt — pinned for reproducibility
+fastapi==0.115.0
+uvicorn[standard]==0.30.6
+gunicorn==22.0.0
+feast[redis]==0.39.1
+sentence-transformers==3.1.1
+lightgbm==4.5.0
+scikit-learn==1.5.2
+pandas==2.2.3
+numpy==1.26.4
+joblib==1.4.2
+pydantic==2.9.2

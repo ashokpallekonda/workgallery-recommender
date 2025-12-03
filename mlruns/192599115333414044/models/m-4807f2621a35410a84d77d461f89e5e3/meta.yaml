@@ -1,0 +1,10 @@
+artifact_location: file:///Users/ashok_pallekonda/Desktop/WG/feature_repo/feature_repo/mlruns/192599115333414044/models/m-4807f2621a35410a84d77d461f89e5e3/artifacts
+creation_timestamp: 1764741417834
+experiment_id: '192599115333414044'
+last_updated_timestamp: 1764741420025
+model_id: m-4807f2621a35410a84d77d461f89e5e3
+model_type: null
+name: model
+source_run_id: 3797b2a490924aff8327bd09e179bcd7
+status: 2
+status_message: null

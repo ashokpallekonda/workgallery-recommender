@@ -1,0 +1,34 @@
+artifact_path: file:///Users/ashok_pallekonda/Desktop/WG/feature_repo/feature_repo/mlruns/192599115333414044/models/m-4807f2621a35410a84d77d461f89e5e3/artifacts
+flavors:
+  lightgbm:
+    code: null
+    data: model.lgb
+    lgb_version: 4.6.0
+    model_class: lightgbm.basic.Booster
+  python_function:
+    data: model.lgb
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.lightgbm
+    python_version: 3.9.6
+is_signature_from_type_hint: false
+mlflow_version: 3.1.4
+model_id: m-4807f2621a35410a84d77d461f89e5e3
+model_size_bytes: 177081
+model_uuid: m-4807f2621a35410a84d77d461f89e5e3
+prompts: null
+run_id: 3797b2a490924aff8327bd09e179bcd7
+saved_input_example_info:
+  artifact_path: input_example.json
+  pandas_orient: split
+  serving_input_path: serving_input_example.json
+  type: dataframe
+signature:
+  inputs: '[{"type": "float", "name": "SKILL_SIMILARITY", "required": true}, {"type":
+    "long", "name": "LOCATION_MATCH", "required": true}, {"type": "long", "name":
+    "EXPERIENCE_GAP", "required": true}]'
+  outputs: '[{"type": "double", "required": true}]'
+  params: null
+type_hint_from_example: false
+utc_time_created: '2025-12-03 05:56:57.837110'

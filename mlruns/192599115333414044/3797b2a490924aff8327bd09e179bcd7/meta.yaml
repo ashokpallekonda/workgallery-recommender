@@ -1,0 +1,14 @@
+artifact_uri: file:///Users/ashok_pallekonda/Desktop/WG/feature_repo/feature_repo/mlruns/192599115333414044/3797b2a490924aff8327bd09e179bcd7/artifacts
+end_time: 1764741420026
+entry_point_name: ''
+experiment_id: '192599115333414044'
+lifecycle_stage: active
+run_id: 3797b2a490924aff8327bd09e179bcd7
+run_name: day5-final-victory
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1764741417705
+status: 3
+tags: []
+user_id: ashok_pallekonda

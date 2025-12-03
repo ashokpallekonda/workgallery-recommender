@@ -1,0 +1,54 @@
+
+N
+.
+	candidate"CANDIDATE_IDJworkgallery_final
+Ø²şÈ¨øî´Ø²şÈ¨øî´
+B
+"
+job"JOB_IDJworkgallery_final
+Ø²şÈÀÕ÷´Ø²şÈÀÕ÷´
+H
+(
+__dummy"
+__dummy_idJworkgallery_final
+Ø²şÈĞÿ´Ø²şÈ¸†µ1"$8d00c067-c688-43e0-89df-8639c8ed165f*š¥¿Éˆ¸¢Ñ2÷
+Ì
+job_featuresworkgallery_finaljob"
+REQUIRED_SKILL_LIST"
+LOCATION2€ç„:hevent_timestampZjob_data.parquetŠ1feast.infra.offline_stores.file_source.FileSource¢
+job_source@b
+
+JOB_ID¥
+Ø²şÈğºÑ´š¥¿ÉèŒ¾É
+ÚËù¹¨”F€´ùÈ
+€´ùÈ€ÏÑÊ
+€ÏÑÊ€ÏÑÊ
+€ÏÑÊ€ÏÑÊ
+€ÏÑÊÎù½É¸¶×¢
+€ÏÑÊ€ÏÑÊ
+€ÏÑÊ€ÏÑÊ2¢
+÷
+candidate_featuresworkgallery_final	candidate"
+
+SKILL_LIST"
+EXPERIENCE_YEARS"
+LOCATION2€ç„:tevent_timestampZcandidate_data.parquetŠ1feast.infra.offline_stores.file_source.FileSource¢candidate_source@b
+CANDIDATE_ID¥
+Ø²şÈğŠá´š¥¿ÉğÑœÑ
+ÚËù¹È¦„Y€´ùÈ
+€´ùÈ€ÏÑÊ
+€ÏÑÊ€ÏÑÊ
+€ÏÑÊ€ÏÑÊ
+€ÏÑÊÎù½É¸¶×¢
+€ÏÑÊ€ÏÑÊ
+€ÏÑÊ€ÏÑÊRÆ
+£
+,feast.infra.online_stores.sqlite.SqliteTable"s
+K/Users/ashok_pallekonda/Desktop/WG/feature_repo/feature_repo/data/online.db$workgallery_final_candidate_features
+
+,feast.infra.online_stores.sqlite.SqliteTable"m
+K/Users/ashok_pallekonda/Desktop/WG/feature_repo/feature_repo/data/online.dbworkgallery_final_job_featuresbˆevent_timestampZcandidate_data.parquetŠ1feast.infra.offline_stores.file_source.FileSource¢candidate_sourceªworkgallery_finalb|event_timestampZjob_data.parquetŠ1feast.infra.offline_stores.file_source.FileSource¢
+job_sourceªworkgallery_finalŠ3
+
+workgallery_final
+Ø²şÈ€º§¯Ø²şÈ€º§¯
