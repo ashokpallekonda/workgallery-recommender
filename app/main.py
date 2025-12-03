@@ -1,29 +1,29 @@
-# app/main.py — FINAL VERSION: API + BEAUTIFUL FRONTEND THAT ACTUALLY WORKS
+# app/main.py — FINAL PRODUCTION VERSION: API + INSTANT GORGEOUS FRONTEND
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import HTMLResponse
 import numpy as np
 import joblib
 import pandas as pd
 from sklearn.metrics.pairwise import cosine_similarity
-import subprocess
-import sys
-import os
+
+# === IMPORT FRONTEND HTML ===
+from app.frontend import get_frontend_html
 
 app = FastAPI(
     title="WorkGallery AI — Job Recommender",
-    description="Two-tower + LightGBM | Live Production System",
-    version="2.0"
+    description="Two-tower neural retrieval + LightGBM ranking | Live & Scalable",
+    version="3.0"
 )
 
-# === LOAD MODEL & DATA ONCE AT STARTUP ===
-print("Loading production model & embeddings...")
+# === LOAD MODEL & DATA ONCE ===
+print("Loading production model & data...")
 MODEL = joblib.load("models/lightgbm_ranker.pkl")
 CAND_EMB = np.load("models/candidate_embeddings.npy")
 JOB_EMB = np.load("models/job_embeddings.npy")
 CAND_DF = pd.read_parquet("models/candidates.parquet")
 JOB_DF = pd.read_parquet("models/jobs.parquet")
 
-# Normalize columns
+# Normalize column names
 CAND_DF.columns = CAND_DF.columns.str.upper()
 JOB_DF.columns = JOB_DF.columns.str.upper()
 
@@ -34,12 +34,12 @@ CAND_LOOKUP = CAND_DF.set_index("CANDIDATE_ID")
 @app.get("/")
 async def root():
     return {
-        "message": "WorkGallery AI is LIVE",
+        "message": "WorkGallery AI is LIVE & PRODUCTION READY",
         "candidates": len(CAND_DF),
         "jobs": len(JOB_DF),
         "endpoints": {
             "api": "/recommend?candidate_id=97",
-            "interactive_ui": "/frontend",
+            "beautiful_ui": "/frontend",
             "docs": "/docs"
         }
     }
@@ -53,9 +53,11 @@ async def recommend(candidate_id: int, top_k: int = 10):
     cand = CAND_LOOKUP.loc[candidate_id]
     cand_vec = CAND_EMB[cand.name]
 
+    # Vectorized scoring
     sims = cosine_similarity([cand_vec], JOB_EMB)[0]
     loc_match = (JOB_DF["LOCATION"] == cand["LOCATION"]).astype(int).values
 
+    # Safe experience gap
     job_exp = JOB_DF["EXPERIENCE_YEARS"].fillna(5) if "EXPERIENCE_YEARS" in JOB_DF.columns else pd.Series(5, index=JOB_DF.index)
     exp_gap = np.abs(job_exp - cand["EXPERIENCE_YEARS"]).values
 
@@ -80,49 +82,16 @@ async def recommend(candidate_id: int, top_k: int = 10):
     return {
         "candidate_id": candidate_id,
         "candidate": {
-            "skills": cand["SKILL_LIST"],
+            "skills": cand["SKILL_LIST"][:500],
             "experience_years": int(cand["EXPERIENCE_YEARS"]),
             "location": cand["LOCATION"]
         },
-        "recommendations": results
+        "recommendations": results,
+        "total_jobs_scored": len(JOB_DF)
     }
 
 
-# BEAUTIFUL FRONTEND — THIS ONE ACTUALLY WORKS
+# === INSTANT, BEAUTIFUL, NO-COLD-START FRONTEND ===
 @app.get("/frontend", response_class=HTMLResponse)
-def serve_frontend():
-    # Launch Streamlit in background
-    subprocess.Popen([
-        sys.executable, "-m", "streamlit", "run",
-        os.path.join(os.path.dirname(__file__), "frontend.py"),
-        "--server.port=8000",
-        "--server.address=0.0.0.0",
-        "--server.headless=true",
-        "--server.enableCORS=false",
-        "--server.enableXsrfProtection=false"
-    ])
-    
-    # Return auto-redirect page
-    return """
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <title>WorkGallery AI</title>
-        <meta charset="utf-8">
-        <meta http-equiv="refresh" content="5;url=/frontend" />
-        <style>
-            body { font-family: system-ui; text-align: center; margin-top: 10%; background: #f0f2f6; }
-            h1 { color: #1e3a8a; }
-            .spinner { width: 50px; height: 50px; border: 5px solid #e0e7ff; border-top: 5px solid #3b82f6; border-radius: 50%; animation: spin 1s linear infinite; margin: 20px auto; }
-            @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        </style>
-    </head>
-    <body>
-        <h1>WorkGallery AI</h1>
-        <p>Launching your beautiful recommendation engine...</p>
-        <div class="spinner"></div>
-        <p><strong>Auto-redirecting in 5 seconds...</strong><br>
-        <a href="/frontend">Click here if not redirected</a></p>
-    </body>
-    </html>
-    """
+async def frontend():
+    return get_frontend_html()
