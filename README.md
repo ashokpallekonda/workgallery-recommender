@@ -79,22 +79,22 @@ Try candidate IDs: `97` (strong matches), `12`, `45`, `88`
 **Built and shipped in 7 days. From idea to public product.**
 
 ## 🛠️ Project Structure
-
 workgallery-recommender/
 ├── app/
-│   ├── main.py          # FastAPI app + recommendation logic
-│   └── frontend.py      # HTML/JS beautiful frontend
+│   ├── main.py                  # FastAPI app + recommendation logic
+│   └── frontend.py              # HTML/JS beautiful frontend
 ├── models/
 │   ├── candidate_embeddings.npy
 │   ├── job_embeddings.npy
 │   ├── candidates.parquet
 │   ├── jobs.parquet
 │   └── lightgbm_ranker.pkl
-├── .github/workflows/
-│   └── retrain.yml      # Weekly auto-retrain
+├── .github/
+│   └── workflows/
+│       └── retrain.yml          # Weekly auto-retrain
 ├── Dockerfile
 ├── requirements.txt
-└── train_recommender.py # Training script
+└── train_recommender.py         # Training script
 
 
 ## 🔮 Future Roadmap
